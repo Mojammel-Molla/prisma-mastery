@@ -4,7 +4,11 @@ const prisma = new PrismaClient();
 
 const main = async () => {
   // find all
-  const getAllPosts = await prisma.post.findMany();
+  const getAllPosts = await prisma.post.findMany({
+    select: {
+      title: true,
+    },
+  });
   // console.log(getAllPosts);
 
   //findFirst and finsFirstOrThrow
@@ -21,7 +25,16 @@ const main = async () => {
       id: 2,
     },
   });
-  console.log({ findUnique });
+  // console.log({ findUnique });
+
+  //find selected filed
+  const getSelectedField = await prisma.post.findMany({
+    select: {
+      authorName: true,
+    },
+  });
+
+  console.log(getSelectedField);
 };
 
 main();
